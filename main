@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#PBS -l nodes=1:ppn=1
+#PBS -l walltime=00:05:00
+
+#parse config.json for input parameters
+#singularity run -B $(pwd):/data -W /data --nv kwyk_latest-gpu.sif -m bvwn_multi_prior -n 2 --save-variance --save-entropy T1_001.nii.gz output.nii.gz
+
+
+model=$(jq -m .model config.json)
+samples=$(jq -n .samples config.json)
+
+
+sv=$(jq .save_variance config.json)
+se=$(jq .save_entropy config.json)
+
+if $sv; then
+	save_var="--save-variance"
+else
+	save_var=""
+fi
+
+if $se; then
+	save_ent="--save-entropy"
+else
+	save_ent=""
+fi
+
+
+t1=$(jq .t1 config.json)
+out=$(jq .out config.json)
+
+singularity pull --docker-login docker://neuronets/kwyk:latest-gpu
+singularity run -B $(pwd):/data -W /data --nv kwyk_latest-gpu.sif $model $samples $save_var $save_ent $sv $se $t1 $out
