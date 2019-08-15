@@ -7,12 +7,12 @@
 #singularity run -B $(pwd):/data -W /data --nv kwyk_latest-gpu.sif -m bvwn_multi_prior -n 2 --save-variance --save-entropy T1_001.nii.gz output.nii.gz
 
 
-model=$(jq -m .model config.json)
-samples=$(jq -n .samples config.json)
+model=$(jq -r .model config.json)
+samples=$(jq -r .samples config.json)
 
 
-sv=$(jq .save_variance config.json)
-se=$(jq .save_entropy config.json)
+sv=$(jq -r .save_variance config.json)
+se=$(jq -r .save_entropy config.json)
 
 if $sv; then
 	save_var="--save-variance"
@@ -27,8 +27,8 @@ else
 fi
 
 
-t1=$(jq .t1 config.json)
-out=$(jq .out config.json)
+t1=$(jq -r .t1 config.json)
+out=$(jq -r .out config.json)
 
 singularity pull --docker-login docker://neuronets/kwyk:latest-gpu
-singularity run -B $(pwd):/data -W /data --nv kwyk_latest-gpu.sif $model $samples $save_var $save_ent $sv $se $t1 $out
+singularity run -B $(pwd):/data -W /data --nv kwyk_latest-gpu.sif -m $model -n $samples $save_var $save_ent $sv $se $t1 $out
