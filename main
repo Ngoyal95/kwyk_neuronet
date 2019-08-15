@@ -30,4 +30,4 @@ fi
 t1=$(jq .t1 config.json)
 out=$(jq .out config.json)
 
-./singularity run -B $(pwd):/data -W /data --nv kwyk_latest-gpu.sif -m $model -n $samples $save_var $save_ent $sv $se $t1 $out
+singularity run -B $(pwd):/data -W /data --nv kwyk_latest-gpu.sif -m $model -n $samples $save_var $save_ent $sv $se $t1 $out
