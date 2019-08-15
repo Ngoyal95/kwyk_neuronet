@@ -30,5 +30,7 @@ fi
 t1=$(jq -r .t1 config.json)
 out=$(jq -r .out config.json)
 
-singularity pull --docker-login docker://neuronets/kwyk:latest-gpu
-singularity run -B $(pwd):/data -W /data --nv kwyk_latest-gpu.sif -m $model -n $samples $save_var $save_ent $sv $se $t1 $out
+# singularity pull --docker-login docker://neuronets/kwyk:latest-gpu
+# singularity run -B $(pwd):./ -W ./ --nv kwyk_latest-gpu.sif -m $model -n $samples $save_var $save_ent $sv $se $t1 $out
+
+singularity exec -nv -e docker://neuronets/kwyk:latest-gpu kwyk_latest-gpu.sif -m $model -n $samples $save_var $save_ent $sv $se $t1 $out
