@@ -33,4 +33,4 @@ out=$(jq -r .out config.json)
 # singularity pull --docker-login docker://neuronets/kwyk:latest-gpu
 # singularity run -B $(pwd):./ -W ./ --nv kwyk_latest-gpu.sif -m $model -n $samples $save_var $save_ent $sv $se $t1 $out
 
-singularity exec --nv -e docker://neuronets/kwyk:latest-gpu nobrainer_bwn -m $model -n $samples $save_var $save_ent $sv $se $t1 $out
+singularity exec --nv -e docker://neuronets/kwyk:latest-gpu nobrainer_bwn -m $model -n $samples $save_var $save_ent $t1 $out
