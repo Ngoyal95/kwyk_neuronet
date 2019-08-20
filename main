@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#PBS -l nodes=1:ppn=7,walltime=00:10:00
-#PBS -l vmem=30gb
+#PBS -l nodes=1:ppn=1,walltime=00:10:00
+#PBS -l vmem=4gb
 #PBS -N kwyk_neuronet
 #SBATCH -p GPU-shared
 #SBATCH --gres=gpu:p100:2
@@ -9,7 +9,7 @@
 #parse config.json for input parameters
 #singularity run -B $(pwd):/data -W /data --nv kwyk_latest-gpu.sif -m bvwn_multi_prior -n 2 --save-variance --save-entropy T1_001.nii.gz output.nii.gz
 
-
+OMP_NUM_THREADS=1
 model=$(jq -r .model config.json)
 samples=$(jq -r .samples config.json)
 
