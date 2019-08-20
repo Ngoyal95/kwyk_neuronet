@@ -9,7 +9,7 @@
 #parse config.json for input parameters
 #singularity run -B $(pwd):/data -W /data --nv kwyk_latest-gpu.sif -m bvwn_multi_prior -n 2 --save-variance --save-entropy T1_001.nii.gz output.nii.gz
 
-OMP_NUM_THREADS=1
+export SINGULARITYENV_OMP_NUM_THREADS=1
 model=$(jq -r .model config.json)
 samples=$(jq -r .samples config.json)
 
