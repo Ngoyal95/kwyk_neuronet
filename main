@@ -3,7 +3,6 @@
 #PBS -l nodes=1:ppn=1,walltime=00:10:00
 #PBS -l vmem=4gb
 #PBS -N kwyk_neuronet
-#SBATCH -p GPU-shared
 #SBATCH --gres=gpu:p100:2
 
 set -e
