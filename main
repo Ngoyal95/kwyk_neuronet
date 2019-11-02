@@ -13,13 +13,15 @@ if [ $model != "bwn" ]; then
 	save_var="--save-variance"
 fi
 
+rm -rf *.nii.gz #clean output from prevsious run
+
 export SINGULARITYENV_OMP_NUM_THREADS=1
-singularity exec --nv -e docker://neuronets/kwyk:latest-gpu nobrainer_bwn \
+time singularity run --nv -e docker://neuronets/kwyk:version-0.4-gpu \
 	-m $model \
 	-n $(jq -r .samples config.json) \
 	$save_var \
 	--save-entropy \
-	$(jq -r .t1 config.json) output.nii.gz
+	$(jq -r .t1 config.json) output
 
 mkdir -p parc
 mv output_means_orig.nii.gz parc/parc.nii.gz
