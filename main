@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#PBS -l nodes=1:ppn=1,walltime=00:10:00
+#PBS -l nodes=1:ppn=1,walltime=00:30:00
 #PBS -l vmem=4gb
 #PBS -N kwyk_neuronet
 #SBATCH --gres=gpu:p100:2
@@ -15,6 +15,7 @@ fi
 
 rm -rf *.nii.gz #clean output from prevsious run
 
+export SINGULARITYENV_PYTHONNOUSERSITE=true
 export SINGULARITYENV_OMP_NUM_THREADS=1
 time singularity run --nv -e docker://neuronets/kwyk:version-0.4-gpu \
 	-m $model \
