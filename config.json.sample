@@ -1,0 +1,5 @@
+{
+    "samples": 2,
+    "model": "bvwn_multi_prior",
+    "t1": "testdata/t1.nii.gz"
+}
